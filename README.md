@@ -3,6 +3,7 @@
 **Zhang Lin Si Cheng (Toni)**
 Independent working paper, version 2, October 2026. Not peer reviewed.
 Repository: [github.com/Shelikeit69/fo3-market-audit](https://github.com/Shelikeit69/fo3-market-audit)
+[中文版](README.zh-CN.md)
 
 [![tests](https://github.com/Shelikeit69/fo3-market-audit/actions/workflows/tests.yml/badge.svg)](https://github.com/Shelikeit69/fo3-market-audit/actions/workflows/tests.yml)
 
