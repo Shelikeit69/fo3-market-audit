@@ -1,42 +1,42 @@
-== Coverage: cards with all 10 rows on each server ==
-server     KR  TH  VN  SG  ID
-card_type                    
-regular    14  14  14  14  14
-special    23   4   4   4   4 
-(total cards: regular 14 , special 23 )
+Cards: 37  Prices: 1105  Tolerance: 100,000 EP
 
-== Share of price cells flagged (cards with full ladders); suspect = chain | dup_server | non_monotonic ==
-        chain  dup_server  non_monotonic  suspect  at_floor  dup_card
-server                                                               
-KR        0.5         0.0            0.0      0.5      24.6       0.8
-TH       35.6         8.9            0.6     41.1       0.6       4.4
-VN       33.3        10.6            0.0     36.1       3.3       6.7
-SG       33.9        39.4            0.0     50.0       1.1       2.8
-ID       34.4        35.6            0.0     46.7       2.2       3.9 
+== Ladder status: number of cards ==
+server              KR  TH  VN  SG  ID
+card_type ladder                      
+ordinary  complete  14  14  14  14  14
+special   complete  23   4   4   4   4
+          lone       0  15   0   0   0
+          none       0   4  19  19  19 
 
-== Korea: the 2x floor rule (next row >= 2 x previous row) ==
-          at_floor       below_floor      
-               sum count         sum count
-card_type                                 
-regular         32   126           0   126
-special         59   207           0   207
+== Prices with a suspect pattern (%), complete ladders ==
+        all complete ladders  same 18 cards
+server                                     
+KR                       0.5            0.0
+TH                      41.1           41.1
+VN                      36.1           36.1
+SG                      50.0           50.0
+ID                      46.7           46.7 
 
-Korea median step ratio by row transition:
-row
-2     2.69
-3     2.00
-4     2.44
-5     2.08
-6     2.18
-7     2.35
-8     2.56
-9     2.20
-10    2.00
+== Korea: steps at and below the 2x floor ==
+           steps  at_floor  below_floor
+card_type                              
+ordinary     126        32            0
+special      207        59            0 
 
-== SEA servers: steps below the 2x floor ==
-        sum  count
-server            
-TH       62    162
-VN        9    162
-SG       35    162
-ID       39    162
+== Southeast Asia: steps below the 2x floor (complete ladders) ==
+        steps  below_floor
+server                    
+TH        162           62
+VN        162            9
+SG        162           35
+ID        162           39 
+
+== Sensitivity: suspect-pattern rate (%) by rounding allowance ==
+server    KR    TH    VN    SG    ID
+0        0.0  31.1  10.6  44.4  38.3
+50,000   0.0  40.0  35.6  48.9  45.0
+100,000  0.5  41.1  36.1  50.0  46.7
+150,000  0.5  41.1  36.1  51.1  46.7 
+
+Lone +1 prices: 15 (servers: ['TH']); above Korea +1: 7
+Step ratios above 4: 42
