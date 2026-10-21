@@ -111,7 +111,7 @@ def add_flags(long: pd.DataFrame, tol: float = DEFAULT_TOL) -> pd.DataFrame:
     prev_factor = g["exact_factor"].shift().where(adjacent)
     is_formula = out["exact_factor"].isin(FORMULA_FACTORS)
     out["formula_chain"] = is_formula & ((out["exact_factor"] == next_factor) | (out["exact_factor"] == prev_factor))
-    out["floor_binding"] = out["exact_factor"] == FLOOR_FACTOR
+    out["floor_match"] = out["exact_factor"] == FLOOR_FACTOR
     out["below_floor"] = out["prev"].notna() & (out["price"] < FLOOR_FACTOR * out["prev"] - FLOOR_FACTOR * tol)
     out["price_inversion"] = out["ratio"] < 1
 
@@ -144,7 +144,7 @@ def suspect_rates(flags: pd.DataFrame, cards=None) -> pd.Series:
 def floor_table(flags: pd.DataFrame) -> pd.DataFrame:
     """Korea steps at and below the 2x floor, by card type."""
     kr = flags[(flags["server"] == "KR") & flags["prev"].notna()]
-    return kr.groupby("card_type").agg(steps=("prev", "size"), at_floor=("floor_binding", "sum"),
+    return kr.groupby("card_type").agg(steps=("prev", "size"), at_floor=("floor_match", "sum"),
                                        below_floor=("below_floor", "sum"))
 
 

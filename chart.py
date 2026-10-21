@@ -55,7 +55,7 @@ def main() -> None:
     ax[1].set_ylabel("Price(n+1) / Price(n), log scale")
     for a in ax:
         a.spines[["top", "right"]].set_visible(False)
-    fig.text(0.01, 0.01, "Source: FIFA Addict FIFA Online 3 database, read October 2026; Korea prices recorded on or after "
+    fig.text(0.01, 0.01, "Source: FIFA Addict FIFA Online 3 database, read October 2026; includes records added on or after "
              "30 Nov 2017. Messi and Ronaldo cards only.", fontsize=7, color="#555")
     plt.tight_layout(rect=(0, 0.03, 1, 1))
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)

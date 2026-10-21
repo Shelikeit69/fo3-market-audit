@@ -10,7 +10,7 @@ Repository: [github.com/Shelikeit69/fo3-market-audit](https://github.com/Shelike
 
 ## Abstract
 
-FIFA Online 3 sold the same player cards in Korea, a large market run by Nexon, and in four smaller Southeast Asian markets run by Garena. A fan site still shows one recorded price per card, server and enhancement level. This paper asks what those records reveal about prices in each region and whether they can support claims about how the markets worked. Using 1,105 recorded prices for all 37 Messi and Ronaldo cards, I apply a tested, rule-based audit that flags prices matching exact multipliers, copies across servers or the game's documented price floor. Three patterns appear. First, 19 of 23 special cards have no complete price ladder for Southeast Asia. Second, none of 333 Korean level-to-level steps falls below the documented minimum of twice the previous level, and 27% sit exactly on it. Third, on the 18 cards with complete ladders everywhere, 36% to 50% of Southeast Asia prices match a formula or copy rule, against 0% for Korea on the same cards. These are patterns in a third-party record, not direct evidence of trading. Thin trading is one explanation consistent with them; the site's own gap filling, different collection times and cards never released locally are others. I set out what each explanation would predict and treat the operating recommendations that follow as hypotheses.
+FIFA Online 3 sold the same player cards in Korea, a large market run by Nexon, and in four smaller Southeast Asian markets run by Garena. A fan site still shows one recorded price per card, server and enhancement level. This paper asks what those records reveal about prices in each region and whether they can support claims about how the markets worked. Using 1,105 recorded prices for all 37 Messi and Ronaldo cards, I apply a tested, rule-based audit that flags prices that match exact multipliers, copies across servers or the game's documented price floor, within a stated rounding allowance. Three patterns appear. First, 19 of 23 special cards have no complete price ladder for Southeast Asia. Second, none of 333 Korean level-to-level steps falls below the documented minimum of twice the previous level, and 27% match exactly twice the previous level within the rounding allowance. Third, on the 18 cards with complete ladders everywhere, the suspect-pattern rule hit rate (a formula chain, a cross-server copy or a price inversion) is 36% to 50% for Southeast Asia, against 0% for Korea on the same cards. These are patterns in a third-party record, not direct evidence of trading. Thin trading is one explanation consistent with them; the site's own gap filling, different collection times and cards never released locally are others. I set out what each explanation would predict and treat the operating recommendations that follow as hypotheses.
 
 **Keywords:** virtual economies; thin markets; price floors; data quality; live operations; FIFA Online 3
 
@@ -29,8 +29,8 @@ I played FIFA Online 3 and 4 from 2014 to 2022, first on the China server and th
 The question breaks into three parts that the data can address directly:
 
 1. **Coverage:** for how many cards does the record show no usable Southeast Asia price?
-2. **Patterns:** among cards with complete records, how many prices match a formula or a copy rather than varying freely?
-3. **Rules:** how often do Korean records sit exactly on the game's documented price floor?
+2. **Patterns:** among cards with complete records, how many prices show a suspect pattern (a formula, a copy or an inversion) rather than varying freely?
+3. **Rules:** how often do Korean steps match the game's documented price floor of twice the previous level?
 
 Whether these patterns were caused by thin trading is a fourth question. The data cannot answer it alone; Section 7 discusses it as a hypothesis.
 
@@ -52,7 +52,7 @@ flowchart TB
   end
   subgraph R["3. Results"]
     direction LR
-    R1["SEA: 19 of 23 special cards<br/>have no complete price ladder"] --- R2["KR: 27% of recorded steps<br/>sit exactly on the 2x floor"] --- R3["SEA: 36-50% of recorded prices<br/>match formula or copy rules"]
+    R1["SEA: 19 of 23 special cards<br/>have no complete price ladder"] --- R2["KR: 27% of recorded steps<br/>match the 2x floor"] --- R3["SEA: suspect-pattern<br/>rule hit rate 36-50%"]
   end
   subgraph N["4. Next"]
     direction LR
@@ -96,7 +96,7 @@ On refresh timing, my own recollection is that prices on the China server update
 
 **Size.** 37 cards × 5 servers × 10 levels gives 1,850 possible prices, of which 1,105 are present.
 
-**Two different dates.** The *collection date* is when I read the pages: October 2026. The *price date* is when the site recorded each price, which is not shown per price. For Korea, the record includes the 2017 season cards, released on 30 November 2017 [9], so Korean prices date from on or after that day; the site says they were last updated "about 9 years ago". No date is shown for Southeast Asia prices, so they may come from a different time than the Korean ones.
+**Two different dates.** The *collection date* is when I read the pages: October 2026. The *price date* is when the site recorded each price, which is not shown per price. The record includes the 2017 season cards, released in Korea on 30 November 2017 [9], so the database contains records added on or after that date. This sets a lower bound only for those cards: prices for older cards may have been recorded earlier and never updated. The site says Korean prices were last updated "about 9 years ago" without saying which. No date is shown for Southeast Asia prices, so they may come from a different time than the Korean ones.
 
 **Collection and checks.** Pages were read one at a time and transcribed to CSV. As an accuracy check, the 50 prices for the Ronaldo 2017 card were compared with a screenshot of the same page; all 50 matched. Copies of the other source pages were not archived, so a reader who wants to verify a price must use the live page linked in Appendix B, which may change.
 
@@ -116,13 +116,13 @@ A **step** compares a price with the price one level below it, on the same card 
 
 | Flag | Rule | Reason |
 |---|---|---|
-| Formula chain | Two adjacent steps rise by the same exact multiplier: ×1.5, ×2.3 or ×3 | Freely varying prices rarely repeat an exact multiplier |
-| Floor binding | A step is exactly ×2.00 | The price sits on the minimum the rules allow |
+| Formula chain | Two adjacent steps rise by the same multiplier (×1.5, ×2.3 or ×3) within the rounding allowance | Freely varying prices rarely repeat an exact multiplier |
+| Floor match | A step equals ×2.00 within the rounding allowance | Consistent with the minimum the rules allow |
 | Cross-server copy | Two or more servers show the same price for the same card and level | Independent records rarely match to the last digit |
 | Price inversion | A higher level is cheaper than the level below | Not consistent with the floor rule |
 | Insufficient coverage | The ladder is lone or partial | Too little data to judge patterns |
 
-Two summary labels are kept separate in the output. **Suspect pattern** means a formula chain, a cross-server copy or a price inversion. **Insufficient coverage** means the ladder is not complete. Floor binding is reported on its own because it reflects a documented rule rather than a gap in the data. In the text, the share of prices with a suspect pattern is called the **rule hit rate**: it measures how often the record matches these rules, not a verified share of estimated prices.
+Two summary labels are kept separate in the output. **Suspect pattern** means a formula chain, a cross-server copy or a price inversion. **Insufficient coverage** means the ladder is not complete. Floor matches are reported on their own because they are consistent with a documented rule rather than a gap in the data; a match does not show that the rule actually constrained a trade. In the text, the share of prices with a suspect pattern is called the **rule hit rate**: it measures how often the record matches these rules, not a verified share of estimated prices.
 
 ### 5.3 Rounding allowance
 
@@ -146,11 +146,11 @@ The functions are in [`fo3audit.py`](fo3audit.py) and the report in [`audit.py`]
 
 All 14 ordinary season cards have complete ladders on every server. Of the 23 special cards, only 4 have complete ladders for Southeast Asia (World Best and 2014 World Cup, for both players). Fifteen show a single Thailand price for +1 and nothing else; in 7 of those 15 the Thailand price is higher than the Korean one. Four show no Southeast Asia price at all. Every special card has a complete Korean ladder.
 
-### 6.2 Rules: a quarter of Korean steps sit on the floor
+### 6.2 Rules: a quarter of Korean steps match the floor
 
-Across 333 Korean steps, none falls below 2× and 91 (27%) sit exactly at 2.00×. The share is similar for ordinary cards (32 of 126, 25%) and special cards (59 of 207, 29%). The floor rule described in the wiki is visible in the Korean record, and in about a quarter of steps it fixes the recorded price.
+Across 333 Korean steps, none falls below 2× and 91 (27%) are consistent with exactly 2× within the rounding allowance. The share is similar for ordinary cards (32 of 126, 25%) and special cards (59 of 207, 29%). The Korean record is consistent with the floor rule described in the wiki. Whether the rule actually constrained trades at those levels cannot be seen in the data.
 
-### 6.3 Patterns: many Southeast Asia records match a formula or a copy
+### 6.3 Patterns: many Southeast Asia records show a suspect pattern
 
 *Table 2. Rule hit rate (share of prices with a suspect pattern) on complete ladders*
 
@@ -177,7 +177,7 @@ The same sequence of values also appears on different cards. For example, 678.5M
 | 100,000 (default) | 0.5% | 41.1% | 36.1% | 50.0% | 46.7% |
 | 150,000 | 0.5% | 41.1% | 36.1% | 51.1% | 46.7% |
 
-With no allowance, most Vietnam formula steps disappear, because exact equality fails once prices are rounded. From 50,000 upward the rates are stable within about 2 percentage points. The ordering of the four Southeast Asia servers is the same at every allowance, and Korea stays near 0% throughout. The exact percentages depend on the allowance; the contrast with Korea does not.
+With no allowance, most Vietnam formula steps disappear, because exact equality fails once prices are rounded. From 50,000 to 150,000 the rates change by at most 2.2 percentage points (Singapore, 48.9% to 51.1%). The external review of version 1 reported 37.2% for Vietnam at 150,000; version 2 gives 36.1% because a step that fits two multipliers now takes the closer one (Section 5.3) instead of the first one checked. The ordering of the four Southeast Asia servers is the same at every allowance, and Korea stays near 0% throughout. The exact percentages depend on the allowance; the contrast with Korea does not.
 
 ### 6.5 Release timing and regional content
 
@@ -201,7 +201,7 @@ Garena also added content of its own: three Malaysian football figures in July 2
 
 ### 7.1 What the record shows
 
-The audit establishes three things about the record itself: Southeast Asia prices are missing for most special cards, Korean prices often sit on the floor rule, and a large share of Southeast Asia prices match exact multipliers or copies. It does not establish how those prices came about.
+The audit establishes three things about the record itself: Southeast Asia prices are missing for most special cards, about a quarter of Korean steps match the floor rule, and a large share of Southeast Asia prices show a suspect pattern. It does not establish how those prices came about.
 
 ### 7.2 Possible explanations
 
@@ -232,7 +232,7 @@ A related observation from my own experience: on the China server, Tencent ran F
 ## 8. Limitations
 
 1. **Third-party record, not market data.** The audit describes FIFA Addict's record. It cannot show trades, listings or volume.
-2. **Unknown timing.** Prices have no dates. Korean prices date from on or after 30 November 2017; Southeast Asia prices may come from a different time.
+2. **Unknown timing.** Prices have no dates. The presence of 2017 season cards shows only that some records were added on or after 30 November 2017; older cards' prices may be earlier, and Southeast Asia prices may come from a different time.
 3. **Two players.** Messi and Ronaldo are among the most traded cards, so the results are not averages for the market.
 4. **Data-driven thresholds.** The multipliers used to detect formula chains were found in the same data they flag. A larger sample should test them on cards not used to choose them.
 5. **Depends on the rounding allowance.** Exact rates move with the allowance (Table 3); the comparison with Korea does not.
@@ -243,7 +243,7 @@ A related observation from my own experience: on the China server, Tencent ran F
 
 ## 9. Conclusion and Future Work
 
-In this record, the same FIFA Online 3 cards look different for Korea and for Southeast Asia. Korean prices are complete and often held at the documented floor. Southeast Asia prices are missing for most special cards, and on cards that are covered, 36% to 50% match a formula or a copy. Thin trading is one explanation consistent with this, but gap filling by the site, different collection times and cards never released locally could produce the same patterns. The recommendations in Section 7.3 should be read as hypotheses to test.
+In this record, the same FIFA Online 3 cards look different for Korea and for Southeast Asia. Korean ladders are complete, and about a quarter of their steps match the documented floor. Southeast Asia prices are missing for most special cards, and on cards that are covered the suspect-pattern rule hit rate is 36% to 50%. Thin trading is one explanation consistent with this, but gap filling by the site, different collection times and cards never released locally could produce the same patterns. The recommendations in Section 7.3 should be read as hypotheses to test.
 
 Next steps:
 
@@ -256,7 +256,7 @@ Next steps:
 ## Version history
 
 - **Version 1** (21 October 2026): first release.
-- **Version 2** (21 October 2026): revised after an external review. Conclusions restricted to what the record shows, with alternative explanations (Table 5). Steps now compare adjacent levels only; complete ladders defined explicitly; input validation added; cross-server copies counted by distinct servers; "suspect pattern" and "insufficient coverage" separated; closest-multiplier rule added; tests and continuous integration added; sensitivity analysis (Table 3), same-card comparison (Table 2) and an uncut log-scale chart added; dependency versions pinned. Published figures are unchanged.
+- **Version 2** (21 October 2026): revised after an external review. Conclusions restricted to what the record shows, with alternative explanations (Table 5). Steps now compare adjacent levels only; complete ladders defined explicitly; input validation added; cross-server copies counted by distinct servers; "suspect pattern" and "insufficient coverage" separated; closest-multiplier rule added; tests and continuous integration added; sensitivity analysis (Table 3), same-card comparison (Table 2) and an uncut log-scale chart added; dependency versions pinned; floor binding renamed floor match; dating claim limited to a lower bound for 2017 cards. The main reported numbers are unchanged, apart from the version 1 review's sensitivity check (Section 6.4).
 
 ---
 
@@ -367,7 +367,7 @@ Next steps:
 |---|---|
 | prev, ratio | Price one level below and the step ratio; blank when that level is missing |
 | exact_factor | Multiplier the step matches within the allowance, if any |
-| formula_chain, floor_binding, below_floor, price_inversion, cross_server_copy, cross_card_repeat | Flags in Table 1 and Appendix A |
+| formula_chain, floor_match, below_floor, price_inversion, cross_server_copy, cross_card_repeat | Flags in Table 1 and Appendix A |
 | ladder | complete, lone or partial |
 | suspect_pattern | Formula chain, cross-server copy or price inversion |
 | insufficient_coverage | Ladder is not complete |

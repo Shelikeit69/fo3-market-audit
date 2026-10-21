@@ -134,7 +134,7 @@ def test_closest_multiplier_wins():
 
 def test_floor_is_not_suspect():
     f = flags_for(card(prices={1: 10e6, 2: 20e6, 3: 40e6}))
-    assert f["floor_binding"].sum() == 2
+    assert f["floor_match"].sum() == 2
     assert not f["suspect_pattern"].any()
 
 

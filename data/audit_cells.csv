@@ -1,4 +1,4 @@
-player,card_id,season_code,card_type,row,server,price,prev,ratio,exact_factor,formula_chain,floor_binding,below_floor,price_inversion,cross_server_copy,cross_card_repeat,ladder,suspect_pattern,insufficient_coverage
+player,card_id,season_code,card_type,row,server,price,prev,ratio,exact_factor,formula_chain,floor_match,below_floor,price_inversion,cross_server_copy,cross_card_repeat,ladder,suspect_pattern,insufficient_coverage
 Ronaldo,6020801,06,ordinary,1,ID,5800000.0,,,,False,False,False,False,False,False,complete,False,False
 Ronaldo,6020801,06,ordinary,2,ID,8800000.0,5800000.0,1.5172413793103448,1.5,False,False,True,False,False,False,complete,False,False
 Ronaldo,6020801,06,ordinary,3,ID,14700000.0,8800000.0,1.6704545454545454,,False,False,True,False,False,False,complete,False,False
