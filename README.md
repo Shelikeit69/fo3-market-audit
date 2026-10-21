@@ -4,6 +4,29 @@ I played FIFA Online 3 and 4 from 2014 to 2022, first on the China server and th
 
 **Question:** the same player card was sold in a large market (Korea, run by Nexon) and in small markets (Thailand, Vietnam, Singapore/Malaysia and Indonesia, run by Garena). How was its price formed in each, and what does that suggest about copying Korea's live-operations approach into a smaller region?
 
+## Roadmap
+
+```mermaid
+flowchart TB
+  subgraph W["1. Why"]
+    direction LR
+    W1["Played FIFA Online 3 and 4<br/>2014-2022, China then SEA server"] --> W2["SEA transfer market<br/>felt empty"] --> W3["Question: same card,<br/>different market?"]
+  end
+  subgraph H["2. How"]
+    direction LR
+    H1["Collect all 37 Messi and<br/>Ronaldo cards: 5 servers x 10 levels"] --> H2["Audit every price: formula<br/>chains, copies, the 2x floor"] --> H3["Add release dates and<br/>regional content"]
+  end
+  subgraph R["3. Results"]
+    direction LR
+    R1["SEA: 19 of 23 special cards<br/>have no full price ladder"] --- R2["KR: 27% of level steps<br/>sit exactly on the 2x floor"] --- R3["SEA: 36-50% of prices look<br/>estimated rather than traded"]
+  end
+  subgraph N["4. Next"]
+    direction LR
+    N1["More players<br/>and card types"] --- N2["Apply the audit to<br/>FC Online today"] --- N3["Repeat snapshots to<br/>track prices over time"]
+  end
+  W --> H --> R --> N
+```
+
 ## Data
 
 - **Source:** the FIFA Online 3 database on [FIFA Addict](https://cn.fifaaddict.com/fo3db.php), a fan site. Each card page lists a price for 10 enhancement levels (+1 to +10) on five servers: Korea (KR), Thailand (TH), Vietnam (VN), Singapore (SG) and Indonesia (ID).
@@ -74,6 +97,12 @@ These are recommendations drawn from the findings, not tested results.
 4. **Spend localisation effort on local content,** as Garena did with Malaysian legends, rather than on matching every Korean release.
 
 A related point from my own experience: on the China server, Tencent ran FIFA Online 3 and FIFA Online 4 side by side, so players were split across two games and many stayed on FIFA Online 3. That is the same thinning effect at a larger scale.
+
+## Next steps
+
+1. **Widen the sample** to more players and card types, including less popular cards.
+2. **Apply the same audit to FC Online,** the game's current version, using today's prices.
+3. **Take repeated snapshots** so prices can be tracked over time instead of at a single point.
 
 ## Limitations
 
